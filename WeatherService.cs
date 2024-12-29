@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -27,52 +28,47 @@ namespace WeatherApp1
         }
 
         // async method (check documentation) to make the API call
-        public async Task<string> ApiCallerAsync(double latitude, double longitude, string apiKey)
+        public async Task<weatherData> ApiCallerAsync(double latitude, double longitude, string apiKey)
         {
-            // validate API key. makes sure that api key always is of the right format
             if (string.IsNullOrEmpty(apiKey))
             {
                 throw new ArgumentException("Invalid API key!");
             }
 
-            // build the url
-            // calls the method to construct the full API Url
             string apiUrl = mainUrlBuilder(latitude, longitude, apiKey);
-            Console.WriteLine($"Generated API URL: {apiUrl}"); // Print the constructed URL
-
-            // use httpclient 
+            Console.WriteLine($"Generated API URL: {apiUrl}");
 
             using (HttpClient client = new HttpClient())
             {
                 try
                 {
-                    // send the GET request using the built URL
                     HttpResponseMessage response = await client.GetAsync(apiUrl);
 
-                    // if response is succeful, read the json data, or else handle the exception
                     if (response.IsSuccessStatusCode)
                     {
-                        return await response.Content.ReadAsStringAsync();
+                        string jsonData = await response.Content.ReadAsStringAsync();
+                        Console.WriteLine($"Raw JSON Data: {jsonData}");
+
+                        // Parse JSON into WeatherData object
+                        weatherData weatherData = JsonConvert.DeserializeObject<weatherData>(jsonData);
+
+                        return weatherData;
                     }
-                    
                     else
                     {
-                        string errorDetails = await response.Content.ReadAsStringAsync();
-                        throw new Exception($"API call failed with status code: {response.StatusCode}, Response: {errorDetails}");
+                        throw new Exception($"API call failed with status code: {response.StatusCode}");
                     }
-
-
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Error occured: {ex.Message}");
+                    Console.WriteLine($"Error occurred: {ex.Message}");
                     throw;
                 }
             }
-
         }
+
+
+
+
     }
-    
-   
-    
 }

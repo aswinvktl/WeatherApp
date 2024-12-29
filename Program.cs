@@ -26,10 +26,14 @@ namespace WeatherApp1
             try
             {
                 // call the API and get the result
-                string result = await service.ApiCallerAsync(latitude, longitude, apiKey);
-                Console.WriteLine(result);
-                Console.WriteLine("Weather data(JSON)");
-                Console.WriteLine(result);
+                weatherData weatherData = await service.ApiCallerAsync(latitude, longitude, apiKey);
+                // Print formatted weather details
+                Console.WriteLine($"City: {weatherData.Name}");
+                Console.WriteLine($"Temperature: {weatherData.main.Temp}°C");
+                Console.WriteLine($"Feels Like: {weatherData.main.feels_like}°C");
+                Console.WriteLine($"Weather: {weatherData.weather[0].Description}");
+                Console.WriteLine($"Wind Speed: {weatherData.Wind.Speed} m/s");
+
             }
             catch (Exception ex)
             {
