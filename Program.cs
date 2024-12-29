@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Permissions;
 using System.Threading.Tasks;
+using System.IO;
 using System.Windows.Forms;
 
 namespace WeatherApp1
@@ -18,10 +20,13 @@ namespace WeatherApp1
             WeatherService service = new WeatherService(); // what is this
 
             // example co-ordinates and api key
+            string config = File.ReadAllText("apiKEY.json");
+            string apiKey = JObject.Parse(config)["apiKey"].ToString();
+
 
             double latitude = 55.9533;
             double longitude = -3.1883;
-            string apiKey = "14d84b3ddd14786e18cad5844741f728";
+           
 
             try
             {
