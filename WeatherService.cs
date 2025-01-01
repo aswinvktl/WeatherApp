@@ -12,10 +12,7 @@ namespace WeatherApp1
 {
     public class WeatherService
     {
-
-        // My api : https://api.openweathermap.org/data/2.5/weather?lat=55.9533&lon=3.1883&appid=bb75568c5e374c82f79e0d47bb800756
-
-
+        
         private const string basicURL = "https://api.openweathermap.org/data/2.5/weather"; // this is the URL which is the base for everything i do with this api and weatherapp. Now i will add stuff to it.
 
         // helper method which adds all the values supplied to it and makes it complete. This enables portability
@@ -64,6 +61,7 @@ namespace WeatherApp1
                     Console.WriteLine($"Error occurred: {ex.Message}");
                     throw;
                 }
+
             }
         }
 
