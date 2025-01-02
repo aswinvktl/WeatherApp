@@ -17,10 +17,9 @@ namespace WeatherApp1
 
         // helper method which adds all the values supplied to it and makes it complete. This enables portability
         public string mainUrlBuilder(double latitude, double longitude, string apiKey) // public string because i am returning a string
+        {
             // replace the placeholders with actual values when called(in main)
             return $"{basicURL}?lat={latitude}&lon={longitude}&appid={apiKey}&units=metric";
-
-
         }
 
         // async method (check documentation) to make the API call
