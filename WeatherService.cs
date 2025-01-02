@@ -16,8 +16,7 @@ namespace WeatherApp1
         private const string basicURL = "https://api.openweathermap.org/data/2.5/weather"; // this is the URL which is the base for everything i do with this api and weatherapp. Now i will add stuff to it.
 
         // helper method which adds all the values supplied to it and makes it complete. This enables portability
-        public string mainUrlBuilder(double latitude, double longitude, string apiKey) // public string because i am returning a string, if not, it wouldve been int
-        {
+        public string mainUrlBuilder(double latitude, double longitude, string apiKey) // public string because i am returning a string
             // replace the placeholders with actual values when called(in main)
             return $"{basicURL}?lat={latitude}&lon={longitude}&appid={apiKey}&units=metric";
 
